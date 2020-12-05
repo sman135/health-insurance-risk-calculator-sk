@@ -14,7 +14,7 @@
 </head>
 <body>
     <h1>&#127973;Health Insurance Risk Calculator&#128138;</h1>
-    <p>Instructions: Choose an answer from each dropdown menu that best describes the patient. Then, click the "Calculate Coverage Risk" button at the bottom of the page to see the patient's risk level.</p>
+    <p>Instructions: Choose an answer from each dropdown menu that best describes the patient. Then, click the "Calculate Coverage Risk" button at the bottom of the page to see the patient's risk level. To evaluate a new patient, simply change the selections in the dropdown menus to match the new patient.</p>
 
     <h2>Age</h2>
 
@@ -154,19 +154,34 @@
         bmi*=10;
         bmi=Math.round(bmi);
         bmi/=10;
+        var bmiResult=0;
+        var familyDisease=0;
 
         points+=parseInt(document.getElementById('diabetes').selectedOptions[0].value);
         points+=parseInt(document.getElementById('cancer').selectedOptions[0].value);
         points+=parseInt(document.getElementById('alzheimers').selectedOptions[0].value);
 
+        if (parseInt(document.getElementById('diabetes').selectedOptions[0].value)==10){
+            familyDisease+=10;
+        }
+        if (parseInt(document.getElementById('cancer').selectedOptions[0].value)==10){
+            familyDisease+=10;
+        }
+        if (parseInt(document.getElementById('alzheimers').selectedOptions[0].value)==10){
+            familyDisease+=10;
+        }
+
         if (bmi<=24.9){
-            points+=0
+            points+=0;
+            bmiResult+=0;
         }
         else if (bmi<=29.9){
-            points+=30
+            points+=30;
+            bmiResult+=30;
         }
         else{
-            points+=75
+            points+=75;
+            bmiResult+=75;
         }
 
         if (points<=20){
@@ -184,7 +199,7 @@
 
         let result="<h1>The patient's lisk level is: "+riskLevel+"</h1>";
 
-        document.getElementById("output").innerHTML=result;
+        document.getElementById("output").innerHTML=result+"<h2>Risk Scores:</h2>"+"<br />Age: "+document.getElementById('age').selectedOptions[0].value+"<br />Blood Pressure: "+document.getElementById('bp').selectedOptions[0].value+"<br />Body Mass: "+bmiResult+"<br />Family Disease: "+familyDisease;
     }
 </script>
 </body>
